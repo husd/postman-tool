@@ -12,7 +12,7 @@ import java.util.List;
 
 public class PostmanRawUtil {
 
-    private final static String ENV_NAME = "{{zone}}";
+    private final static String ENV_NAME = "{{your_url}}";
 
     static PostmanItemRequest postman_item_request_raw(String url, RequestMethod method, String json) {
 
