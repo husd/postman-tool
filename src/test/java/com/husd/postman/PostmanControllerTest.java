@@ -46,14 +46,14 @@ public class PostmanControllerTest {
     //黑名单的URL，不会被生成到文件里
     private final String[] url_blacklist = {"/error"};
 
-    // 开启文件夹 如果是true，就表示你的controller的包是类似:
+    // 开启文件夹 如果是以下场景，建议开启：
+    // 你的controller的包是类似这样的结构:
     // com.xxx.controller.a
     // com.xxx.controller.b
     // com.xxx.controller.c
-    // 这样的结构，这样就可以设置为true，这样生成的postman就会自动生成多个文件夹
-
+    // 就可以设置为true，这样生成的postman就会自动生成多个文件夹
     // 默认是不开启，这样所有的URL，就会平铺，没有按包进行文件夹归类
-    private final static boolean folder = true;
+    private final static boolean folder = false;
 
     //这个是最终生成的文件的目录
     private final static String targetFilePath = "/tmp/";
