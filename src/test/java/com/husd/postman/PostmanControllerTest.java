@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.MethodParameter;
+import org.springframework.core.io.InputStreamSource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.WebApplicationContext;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
@@ -92,9 +94,15 @@ public class PostmanControllerTest {
             MethodParameter[] methodParameters = handlerMethod.getMethodParameters();
             if (methodParameters != null && methodParameters.length > 0) {
                 Type paramClass = handlerMethod.getMethodParameters()[0].getParameter().getParameterizedType();
-                Object param = getMockParam(paramClass);
-                if (param != null) {
-                    json = JSONObject.toJSONString(param);
+                if(paramClass == InputStream.class ||
+                paramClass == InputStreamSource.class ||
+                paramClass == java.io.File.class) {
+                    json = "";
+                } else {
+                    Object param = getMockParam(paramClass);
+                    if (param != null) {
+                        json = JSONObject.toJSONString(param);
+                    }
                 }
             }
 
